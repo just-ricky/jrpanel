@@ -45,6 +45,13 @@
   dependencies:
     regenerator-runtime "^0.13.4"
 
+"@babel/runtime@^7.16.7":
+  version "7.17.2"
+  resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.17.2.tgz#66f68591605e59da47523c631416b18508779941"
+  integrity sha512-hzeyJyMA1YGdJTuWU0e/j4wKXrU4OMFvY2MSlaI9B7VQb0r5cxTE3EAIS2Q7Tn2RIcDkRvTA/v2JsAEhxe99uw==
+  dependencies:
+    regenerator-runtime "^0.13.4"
+
 "@commitlint/cli@16.2.1":
   version "16.2.1"
   resolved "https://registry.yarnpkg.com/@commitlint/cli/-/cli-16.2.1.tgz#ca4e557829a2755f0e1f0cd69b56b83ce2510173"
@@ -270,6 +277,20 @@
     js-yaml "^4.1.0"
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
+
+"@geist-ui/core@2.3.5":
+  version "2.3.5"
+  resolved "https://registry.yarnpkg.com/@geist-ui/core/-/core-2.3.5.tgz#9b9f64f1c26e9fa68eb7e2bc4a2c1022ee353f66"
+  integrity sha512-tL97ABu7kSAi3xLsnDatG6ZDoEFnnEOlQ3AQ9lMEVjroHyl9L0Iqn1ZUlqd80UZOimsVUoPabTlCtVG+A6MULg==
+  dependencies:
+    "@babel/runtime" "^7.16.7"
+
+"@geist-ui/react@2.2.5":
+  version "2.2.5"
+  resolved "https://registry.yarnpkg.com/@geist-ui/react/-/react-2.2.5.tgz#769f76d70e988cd1d75ab8499e71972804535e75"
+  integrity sha512-yPBAweYVh5HXXJ6W5ont/z6UObbfsjesg0/KTfcJzc64/zjGgp+wv2zLIdReGOTAj2R4XWoNSirNGGbQnwFe6w==
+  dependencies:
+    "@babel/runtime" "^7.16.7"
 
 "@humanwhocodes/config-array@^0.9.2":
   version "0.9.2"
