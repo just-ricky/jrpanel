@@ -1,15 +1,16 @@
 import { AppProps } from 'next/app';
 import '@/styles/global.css';
 import Layout from '@/components/layout';
-import { GeistProvider, CssBaseline } from '@geist-ui/react';
+import 'normalize.css/normalize.css';
+import { Grommet } from 'grommet';
+import { theme } from '@/components/theme';
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <GeistProvider>
-      <CssBaseline />
-      <Layout>
+    <Grommet theme={theme} full>
+      <Layout pageTitle={pageProps.pageTitle}>
         <Component {...pageProps} />
       </Layout>
-    </GeistProvider>
+    </Grommet>
   );
 }
