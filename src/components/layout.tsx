@@ -1,4 +1,4 @@
-import { Text, Header, Menu, Anchor, Footer, Box } from 'grommet';
+import { Box } from 'grommet';
 import HeadContainer from './boilerplate/head-container';
 import BottomBar from './bottombar';
 import NavBar from './navbar';
@@ -6,12 +6,10 @@ import NavBar from './navbar';
 export default function Layout({ children, pageTitle }: any) {
   return (
     <>
-      <HeadContainer {...pageTitle} />
+      <HeadContainer pageTitle={pageTitle} />
       <Box fill>
         <NavBar />
-        <Box flex="grow" pad={{ horizontal: `medium` }}>
-          {children}
-        </Box>
+        {children}
         <BottomBar />
       </Box>
     </>

@@ -2,7 +2,7 @@ import { Heading, Box, Main, Text } from 'grommet';
 
 export default function Index() {
   return (
-    <Box align="center">
+    <Box flex align="center">
       <Main align="center">
         <Heading>Just Ricky</Heading>
         <Text>Staff Panel</Text>

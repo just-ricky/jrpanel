@@ -42,7 +42,4 @@ export const theme = deepMerge(grommet, {
       height: `24px`,
     },
   },
-  button: {
-    color: `white`,
-  },
 });

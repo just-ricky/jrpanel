@@ -1,3 +1,9 @@
+import { Box, Heading } from 'grommet';
+
 export default function About() {
-  return <h1>About!</h1>;
+  return (
+    <Box align="center" pad={{ horizontal: `medium` }}>
+      <Heading>About</Heading>
+    </Box>
+  );
 }
