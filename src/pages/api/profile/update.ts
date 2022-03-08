@@ -1,5 +1,4 @@
 import { connect } from '@/database/database';
-import Auth0User from '@/models/Auth0User';
 import { getSession, withApiAuthRequired } from '@auth0/nextjs-auth0';
 
 connect();
