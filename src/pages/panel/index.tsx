@@ -1,6 +1,7 @@
 import { withPageAuthRequired } from '@auth0/nextjs-auth0';
 import { Anchor, Box, Heading, Meter, Text } from 'grommet';
 import { Tools } from 'grommet-icons';
+
 export default function Panel() {
   return (
     <Box flex background={`light-3`} pad={`medium`} overflow={`auto`}>
