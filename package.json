@@ -29,10 +29,12 @@
   "dependencies": {
     "@auth0/nextjs-auth0": "1.7.0",
     "@types/auth0": "2.34.13",
+    "@types/memory-cache": "0.2.2",
     "auth0": "2.40.0",
     "axios": "0.26.0",
     "grommet": "2.21.0",
     "grommet-icons": "4.7.0",
+    "memory-cache": "0.2.0",
     "mongoose": "6.2.4",
     "next": "12.1.0",
     "normalize.css": "8.0.1",

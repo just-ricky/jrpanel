@@ -1,49 +1,57 @@
 import { useUser } from '@auth0/nextjs-auth0';
 import { Header, Anchor, Box, Text, Avatar, Spinner } from 'grommet';
-import { useMinecraftUser } from '../../swr/index';
+import { useMinecraftMeta } from '../../swr/index';
+
+const Loading = () => {
+  return <Spinner />;
+};
 
 const Username = () => {
-  const { minecraftUser, isLoading, isError } = useMinecraftUser();
+  const { minecraftMeta, isLoading } = useMinecraftMeta();
 
-  if (isError) {
-    return (
-      <Box direction="row" align="center" gap="medium">
-        <Text>No MC Account Synced</Text>
-        <Anchor href="/profile">Visit Profile</Anchor>
-      </Box>
-    );
-  }
-
-  if (minecraftUser) {
-    const uuid = minecraftUser?.minecraft?.uuid;
+  if (minecraftMeta) {
+    const name = minecraftMeta?.data?.player?.username;
 
     // todo replace with username (from web request to MC api?)
-    return <Anchor href="/profile">{uuid}</Anchor>;
+    return <Anchor href="/profile">{name}</Anchor>;
   }
 
   if (isLoading) {
     return <Loading />;
   }
 
-  return <Text>Something went wrong!</Text>;
+  return (
+    <Box direction="row" align="center" gap="medium">
+      <Text>No MC Account Synced</Text>
+      <Anchor href="/profile">Visit Profile</Anchor>
+    </Box>
+  );
+};
+
+const MinecraftAvatar = () => {
+  const { minecraftMeta, isLoading } = useMinecraftMeta();
+
+  if (minecraftMeta) {
+    const avatar = minecraftMeta?.data?.player?.avatar;
+    // todo replace with username (from web request to MC api?)
+    return <Avatar size="xsmall" src={avatar} />;
+  }
+
+  if (isLoading) {
+    return <Loading />;
+  }
+
+  return <></>;
 };
 
 const LoggedOut = () => {
   return <Anchor href="/api/auth/login">Login</Anchor>;
 };
 
-const Loading = () => {
-  return <Spinner />;
-};
-
 const LoggedIn = () => {
   return (
     <Box gap="medium" direction="row" align="center">
-      {/* Make this use actual players' uuid */}
-      <Avatar
-        size="xsmall"
-        src="https://crafatar.com/avatars/e7b7aa17-8c93-4618-af85-e580fa98e202"
-      />
+      <MinecraftAvatar />
       <Username />
       <Anchor href="/api/auth/logout">Logout</Anchor>
     </Box>

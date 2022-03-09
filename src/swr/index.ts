@@ -10,6 +10,29 @@ export const useMinecraftUser = () => {
   };
 };
 
+export const useMinecraftMeta = () => {
+  const { minecraftUser, isLoading, isError } = useMinecraftUser();
+  const { data, error } = useSWR(
+    `/api/external/get-minecraft-meta?uuid=${minecraftUser?.minecraft?.uuid}`,
+  );
+
+  if (minecraftUser && minecraftUser?.minecraft?.uuid) {
+    return {
+      minecraftMeta: data,
+      isLoading: !error && !data,
+      isError: error,
+    };
+
+    // get username
+  } else {
+    return {
+      minecraftMeta: null,
+      isLoading: isLoading,
+      isError: isError,
+    };
+  }
+};
+
 export const localStorageProvider = () => {
   // if the window hasn't loaded yet (SSR workaround)
   if (typeof window === `undefined`) {
