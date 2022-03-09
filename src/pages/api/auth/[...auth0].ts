@@ -2,11 +2,10 @@ import {
   handleAuth,
   handleCallback,
   handleLogin,
-  getSession,
   Session,
 } from '@auth0/nextjs-auth0';
 import { connect } from '@/database/database';
-import Auth0User from '@/models/Auth0User';
+import MinecraftUser from '@/models/MinecraftUser';
 
 connect();
 
@@ -42,10 +41,14 @@ const checkOrCreateMongoUser = async (session: Session) => {
     return;
   }
 
-  let a0u = await Auth0User.findOne({ auth0id: uId });
+  let mu = await MinecraftUser.findOne({ auth0id: uId });
 
-  if (!a0u) {
+  if (!mu) {
     // create, since it doesn't exist
-    a0u = await Auth0User.create({ auth0id: uId, email: session?.user.email });
+    mu = await MinecraftUser.create({
+      auth0id: uId,
+      email: session?.user.email,
+      minecraft: { uuid: null, accountSynced: false, rank: null },
+    });
   }
 };

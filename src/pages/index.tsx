@@ -1,4 +1,5 @@
 import { Heading, Box, Main, Text } from 'grommet';
+import React from 'react';
 
 export default function Index() {
   return (

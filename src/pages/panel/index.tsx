@@ -18,8 +18,9 @@ export default function Panel() {
             pad={`medium`}
             gap={`medium`}
             direction="row"
+            justify="around"
           >
-            <Box align="start" justify="between" gap={`medium`}>
+            <Box align="start" justify="around" gap={`medium`}>
               <Box direction="row" gap={`large`}>
                 <Box>
                   <Heading level={3} margin="none">
