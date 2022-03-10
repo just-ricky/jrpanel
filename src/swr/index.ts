@@ -22,8 +22,6 @@ export const useMinecraftMeta = () => {
       isLoading: !error && !data,
       isError: error,
     };
-
-    // get username
   } else {
     return {
       minecraftMeta: null,

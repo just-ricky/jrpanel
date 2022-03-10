@@ -7,7 +7,7 @@ const Loading = () => {
 };
 
 const Username = () => {
-  const { minecraftMeta, isLoading } = useMinecraftMeta();
+  const { minecraftMeta, isLoading, isError } = useMinecraftMeta();
 
   if (minecraftMeta) {
     const name = minecraftMeta?.data?.player?.username;
@@ -18,6 +18,15 @@ const Username = () => {
 
   if (isLoading) {
     return <Loading />;
+  }
+
+  if (isError) {
+    return (
+      <Box direction="row" align="center" gap="medium">
+        <Text>Oops...something went wrong!</Text>
+        <Anchor href="/profile">Visit Profile</Anchor>
+      </Box>
+    );
   }
 
   return (
