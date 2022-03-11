@@ -1,7 +1,13 @@
-import mcSyncCache, { SyncResponse } from '@/cache/mc-sync-cache';
 import { connect } from '@/database/database';
+import MinecraftUser from '@/models/MinecraftUser';
+import SyncSession from '@/models/SyncSession';
 
 connect();
+
+type SyncResponse = {
+  error: boolean;
+  message: string;
+};
 
 const handler = async (req: any, res: any) => {
   // get code in request params
@@ -15,10 +21,28 @@ const handler = async (req: any, res: any) => {
       .send({ error: true, message: `missing code or uuid` });
   }
 
-  // try to sync
-  const syncResposne: SyncResponse = await mcSyncCache.completeSync(uuid, code);
+  // check if this user is syncing
+  const syncSession = await SyncSession.findOne({ code: code });
 
-  res.status(syncResposne.error ? 400 : 200).send(syncResposne);
+  // create response
+  let syncResponse: SyncResponse;
+
+  if (!syncSession) {
+    syncResponse = { error: true, message: `no sync session found` };
+  } else {
+    // update minecraft user
+    await MinecraftUser.updateOne(
+      { auth0id: syncSession.auth0id },
+      { $set: { 'minecraft.accountSynced': true, 'minecraft.uuid': uuid } },
+    );
+
+    // remove sync session
+    await SyncSession.deleteOne({ auth0id: syncSession.auth0id });
+
+    syncResponse = { error: false, message: `success` };
+  }
+
+  res.status(syncResponse.error ? 400 : 200).send(syncResponse);
 };
 
 export default handler;

@@ -1,4 +1,3 @@
-import mcSyncCache from '@/cache/mc-sync-cache';
 import { connect } from '@/database/database';
 import { getSession, Session, withApiAuthRequired } from '@auth0/nextjs-auth0';
 

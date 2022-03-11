@@ -28,7 +28,7 @@ const handler = withApiAuthRequired(async (req: any, res: any) => {
     ).data) as MinecraftMeta;
     res.status(200).send(playerObject);
   } catch (e) {
-    console.error(e);
+    // console.error(e);
     res.status(400).send(null);
   }
 });

@@ -1,6 +1,6 @@
-import mcSyncCache from '@/cache/mc-sync-cache';
 import { connect } from '@/database/database';
 import MinecraftUser, { IMinecraftUser } from '@/models/MinecraftUser';
+import SyncSession from '@/models/SyncSession';
 import { getSession, Session, withApiAuthRequired } from '@auth0/nextjs-auth0';
 
 connect();
@@ -47,8 +47,11 @@ const handler = withApiAuthRequired(async (req: any, res: any) => {
       .send({ error: true, message: `this account is already synced` });
   }
 
+  // try to find object in sync session database
+  const syncSession = await SyncSession.findOne({ auth0id: session.user.sub });
+
   // if already syncing
-  if (mcSyncCache.isSyncingAlready(session.user.sub)) {
+  if (syncSession) {
     return res
       .status(400)
       .send({ error: true, message: `this account is already syncing` });
@@ -60,9 +63,13 @@ const handler = withApiAuthRequired(async (req: any, res: any) => {
   // create new code (6 digits in length)
   const code = generateCode(6);
 
-  mcSyncCache.startSync(user.sub, code);
+  // create new sync session object
+  const newSession = await SyncSession.create({
+    auth0id: user.sub,
+    code: code,
+  });
 
-  res.status(200).send({ code: code });
+  res.status(200).send({ code: newSession.code });
 });
 
 export default handler;
