@@ -1,21 +1,6 @@
+import { MinecraftMeta } from '@/types/minecraftmeta';
 import { withApiAuthRequired } from '@auth0/nextjs-auth0';
 import axios from 'axios';
-
-type MinecraftMeta = {
-  code: string;
-  message: string;
-  data: {
-    player: {
-      meta: {
-        name_history: [{ name: string }];
-      };
-      username: string;
-      id: string;
-      raw_id: string;
-      avatar: string;
-    };
-  };
-};
 
 const handler = withApiAuthRequired(async (req: any, res: any) => {
   // get uuid from query

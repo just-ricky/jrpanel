@@ -2,6 +2,7 @@ import { connect } from '@/database/database';
 import MinecraftUser, { IMinecraftUser } from '@/models/MinecraftUser';
 import SyncSession from '@/models/SyncSession';
 import { getSession, Session, withApiAuthRequired } from '@auth0/nextjs-auth0';
+import { SyncStartResponse } from '../../../../types/sync/index';
 
 connect();
 
@@ -33,28 +34,35 @@ const handler = withApiAuthRequired(async (req: any, res: any) => {
     auth0id: session.user.sub,
   });
 
+  let response: SyncStartResponse;
+
   // if doesn't exist
   if (!mu) {
-    return res
-      .status(400)
-      .send({ error: true, message: `this account has a problem` });
+    response = {
+      error: true,
+      message: `this account has a problem`,
+      code: null,
+    };
+    return res.status(400).send(response);
   }
 
   // if it's already synced
   if (mu.minecraft.accountSynced) {
-    return res
-      .status(400)
-      .send({ error: true, message: `this account is already synced` });
+    response = {
+      error: true,
+      message: `this account is already synced`,
+      code: null,
+    };
+
+    return res.status(400).send(response);
   }
 
   // try to find object in sync session database
   const syncSession = await SyncSession.findOne({ auth0id: session.user.sub });
 
-  // if already syncing
   if (syncSession) {
-    return res
-      .status(400)
-      .send({ error: true, message: `this account is already syncing` });
+    response = { error: false, message: null, code: syncSession.code };
+    return res.status(200).send(response);
   }
 
   // get user
@@ -69,7 +77,8 @@ const handler = withApiAuthRequired(async (req: any, res: any) => {
     code: code,
   });
 
-  res.status(200).send({ code: newSession.code });
+  response = { error: false, message: null, code: newSession.code };
+  res.status(200).send(response);
 });
 
 export default handler;

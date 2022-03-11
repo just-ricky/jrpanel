@@ -1,13 +1,9 @@
 import { connect } from '@/database/database';
 import MinecraftUser from '@/models/MinecraftUser';
 import SyncSession from '@/models/SyncSession';
+import { SyncCompleteResponse } from '@/types/sync';
 
 connect();
-
-type SyncResponse = {
-  error: boolean;
-  message: string;
-};
 
 const handler = async (req: any, res: any) => {
   // get code in request params
@@ -25,7 +21,7 @@ const handler = async (req: any, res: any) => {
   const syncSession = await SyncSession.findOne({ code: code });
 
   // create response
-  let syncResponse: SyncResponse;
+  let syncResponse: SyncCompleteResponse;
 
   if (!syncSession) {
     syncResponse = { error: true, message: `no sync session found` };
