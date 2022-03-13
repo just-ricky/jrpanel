@@ -1,15 +1,9 @@
 {
-  "name": "typescript-nextjs-starter",
-  "description": "A TypeScript starter for Next.js that includes all you need to build amazing projects",
+  "name": "justrickypanel",
+  "description": "JustRicky staff panel source code",
   "version": "1.0.0",
   "private": true,
-  "author": "João Pedro Schmitz <hey@joaopedro.dev> (@jpedroschmitz)",
-  "license": "MIT",
-  "keywords": [
-    "nextjs",
-    "starter",
-    "typescript"
-  ],
+  "author": "Jacob Cohen <jacob@yakovliam.com> (@yakovliam)",
   "scripts": {
     "dev": "next",
     "build": "next build",
